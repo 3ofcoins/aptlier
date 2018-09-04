@@ -1,0 +1,40 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+Documentation:
+  Enabled: false
+
+Layout/IndentHeredoc:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+Metrics/AbcSize:
+  # Maybe refactor later
+  Enabled: false
+
+Metrics/ClassLength:
+  # Maybe refactor later
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  # Maybe refactor later
+  Enabled: false
+
+Metrics/MethodLength:
+  # Maybe refactor later
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  # Maybe refactor later
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Style/AndOr:
+  EnforcedStyle: conditionals
+
+Style/PerlBackrefs:
+  Enabled: false
