@@ -1,6 +1,8 @@
 Aptlier
 =======
 
+[![Build Status](https://travis-ci.com/3ofcoins/aptlier.svg?branch=master)](https://travis-ci.com/3ofcoins/aptlier)
+
 Aptlier is a tool to manage [aptly](https://www.aptly.info/)
 repositories of Debian/Ubuntu packages. Its main goal is to publish
 a single repository that merges multiple mirrors and repositories with
