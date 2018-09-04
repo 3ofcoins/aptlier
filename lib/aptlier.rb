@@ -417,7 +417,7 @@ keyring trustedkeys.gpg
 keyid-format long
 list-options show-keyring
 with-fingerprint
-with-subkey-fingerprint
+# with-subkey-fingerprint
 # with-key-origin
 EOF
                       gpg_home_path
