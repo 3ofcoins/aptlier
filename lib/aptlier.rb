@@ -5,6 +5,7 @@ require 'json'
 require 'open3'
 require 'open-uri'
 require 'shellwords'
+require 'tempfile'
 require 'time'
 
 require 'aptlier/version'
@@ -169,13 +170,20 @@ EOF
             '--recv-keys', fingerprint
       when %r{^packagecloud:([-\w]+/[-\w]+)$}
         # packagecloud repo
-        key_url = "https://packagecloud.io/#{$1}/gpgkey"
-        gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg', *args,
-            '--fetch-keys', key_url
+        Tempfile.create ['aptly-pubkey', '.asc'] do |keyfile|
+          keyfile.write(URI.parse("https://packagecloud.io/#{$1}/gpgkey").read)
+          keyfile.close
+          gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg', *args,
+              '--import', keyfile.path
+        end
       when %r{^https://}
         # Key URL
-        gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg', *args,
-            '--fetch-keys', key
+        Tempfile.create ['aptly-pubkey', '.asc'] do |keyfile|
+          keyfile.write(URI.parse(key).read)
+          keyfile.close
+          gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg', *args,
+              '--import', keyfile.path
+        end
       when %r{^http://}
         # HTTP URL, refuse to comply
         raise 'WTF, dude???'
