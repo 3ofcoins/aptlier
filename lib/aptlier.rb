@@ -422,6 +422,7 @@ keyring trustedkeys.gpg
 keyid-format long
 list-options show-keyring
 with-fingerprint
+always-trust
 # with-subkey-fingerprint
 EOF
                       gpg_home_path
