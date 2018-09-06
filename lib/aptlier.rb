@@ -171,13 +171,11 @@ EOF
         # packagecloud repo
         key_url = "https://packagecloud.io/#{$1}/gpgkey"
         gpg '--no-default-keyring',
-            '--key-origin', "url,#{key_url}",
             *args,
             '--fetch-keys', key_url
       when %r{^https://}
         # Key URL
         gpg '--no-default-keyring',
-            '--key-origin', "url,#{key}",
             *args,
             '--fetch-keys', key
       when %r{^http://}
@@ -418,7 +416,6 @@ keyid-format long
 list-options show-keyring
 with-fingerprint
 # with-subkey-fingerprint
-# with-key-origin
 EOF
                       gpg_home_path
                     end
