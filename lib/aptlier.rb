@@ -336,12 +336,14 @@ EOF
       if aptly_lines('publish', 'list', '-raw').include?(options[:publish_name])
         # TODO: compare snapshots
         aptly 'publish', 'switch',
+              "-component=main",
               options[:release],
               options[:publish_name],
               snapshot_name
       else
         aptly 'publish', 'snapshot',
               "-distribution=#{options[:release]}",
+              "-component=main",
               snapshot_name,
               options[:publish_name]
       end
