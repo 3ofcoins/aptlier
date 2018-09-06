@@ -163,38 +163,36 @@ EOF
       when %r{^ppa:([-\w]+)/([-\w]+)$}
         # PPA
         fingerprint = ppa_fingerprint($1, $2)
-        gpg '--no-default-keyring',
+        gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg',
             '--keyserver', 'hkp://keyserver.ubuntu.com',
             *args,
             '--recv-keys', fingerprint
       when %r{^packagecloud:([-\w]+/[-\w]+)$}
         # packagecloud repo
         key_url = "https://packagecloud.io/#{$1}/gpgkey"
-        gpg '--no-default-keyring',
-            *args,
+        gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg', *args,
             '--fetch-keys', key_url
       when %r{^https://}
         # Key URL
-        gpg '--no-default-keyring',
-            *args,
+        gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg', *args,
             '--fetch-keys', key
       when %r{^http://}
         # HTTP URL, refuse to comply
         raise 'WTF, dude???'
       when /.@.+\../
         # email address / key id
-        gpg '--no-default-keyring', *args,
+        gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg', *args,
             '--search-keys', key
       when /^-./
         # gnupg option, we assume it's raw gpg command line
-        gpg '--no-default-keyring', key, *args
+        gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg', key, *args
       when /^(0x)?[0-9a-fA-F]+$/
         # key id
-        gpg '--no-default-keyring', *args,
+        gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg', *args,
             '--recv-keys', key
       else
         # filename or '-'
-        gpg '--no-default-keyring', *args,
+        gpg '--no-default-keyring', '--keyring', 'trustedkeys.gpg', *args,
             '--import', key
       end
     end
