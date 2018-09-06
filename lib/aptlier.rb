@@ -62,11 +62,17 @@ module Aptlier
           add_key name
           add_mirror name, url, release, 'main'
         when /^packagecloud:/
-          url = "https://packagecloud.io/#{$'}/#{options[:distributor]}"
-
           release = args.shift
           release = options[:release] if
             release.nil? || release == '' || release == '-'
+
+          if release.include?('/')
+            distributor, release = release.split('/', 2)
+          else
+            distributor = options[:distributor]
+          end
+
+          url = "https://packagecloud.io/#{$'}/#{distributor}"
 
           add_key name
           add_mirror name, url, release, 'main'
