@@ -442,7 +442,7 @@ EOF
 
     def ppa_fingerprint(owner, archive)
       fp_url = "https://api.launchpad.net/1.0/~#{owner}/+archive/#{archive}/signing_key_fingerprint" # rubocop:disable Metrics/LineLength
-      JSON[URI(fp_url).read]
+      URI(fp_url).read.delete('"')
     end
 
     def child_environment
