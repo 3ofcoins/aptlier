@@ -339,17 +339,18 @@ EOF
 
     def publish!
       snapshot_name = merge_snapshots!
-      if aptly_lines('publish', 'list', '-raw').include?("#{options[:publish_name]} #{options[:release]}")
+      if aptly_lines('publish', 'list', '-raw')
+           .include?("#{options[:publish_name]} #{options[:release]}")
         # TODO: compare snapshots
         aptly 'publish', 'switch',
-              "-component=main",
+              '-component=main',
               options[:release],
               options[:publish_name],
               snapshot_name
       else
         aptly 'publish', 'snapshot',
               "-distribution=#{options[:release]}",
-              "-component=main",
+              '-component=main',
               snapshot_name,
               options[:publish_name]
       end
