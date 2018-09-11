@@ -460,6 +460,7 @@ EOF
       log "< #{args.shelljoin}" if options[:verbose]
       output, status = Open3.capture2(child_environment, *args)
       raise "FATAL: #{status} (#{args.join(' ')})" unless status.success?
+
       output
     end
 
