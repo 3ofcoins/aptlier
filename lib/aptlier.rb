@@ -162,7 +162,7 @@ EOF
     end
 
     def init_repo
-      gpg '--no-default-keyring', '--fingerprint'
+      gpg '--no-default-keyring', '--fingerprint', '--trust-model=direct'
       aptly 'db', 'cleanup'
     end
 
@@ -431,7 +431,7 @@ keyring trustedkeys.gpg
 keyid-format long
 list-options show-keyring
 with-fingerprint
-always-trust
+trust-model always
 # with-subkey-fingerprint
 EOF
                       gpg_home_path
